@@ -16,6 +16,8 @@ var player,
   gameState,
   fpsText,
   fpsDisplayCounter = 0,
+  score = 0,
+  scoreText,
   slipSpeed = 1.5,
   termVelocity = 6;
 
@@ -27,7 +29,6 @@ loader
   .load(setup);
 
 function onClick() {
-  // TODO: update conditions to check if player is touching tree
   if (player.x === treeLeft.width) {
     // jumping = true;
     player.vx = 4;
@@ -77,9 +78,15 @@ function setup() {
 
   // Create text for FPS counter display
   fpsText = new PIXI.Text('FPS:', {fill: '#00ff99'});
-  fpsText.x = 16;
-  fpsText.y = 16;
+  fpsText.x = app.renderer.width - 104;
+  fpsText.y = app.renderer.height - 32;
   app.stage.addChild(fpsText);
+
+  // Create score display
+  scoreText = new PIXI.Text('Score: ' + score, {fill: '#00ff99'});
+  scoreText.x = 16;
+  scoreText.y = app.renderer.height - 32;
+  app.stage.addChild(scoreText);
 
   // Make the stage interactive to capture pointer events
   app.stage.interactive = true;
@@ -88,10 +95,6 @@ function setup() {
 
   // Set initial game state
   gameState = play;
-
-  // diagnostic/troubleshooting
-  console.log("app.renderer.width: " + app.renderer.width);
-  console.log("treeRight.width: " + treeRight.width);
 
   // Start the listener to update on every ticker from App
   app.ticker.add(gameState);
@@ -119,6 +122,19 @@ function play() {
     if (player.vy >= termVelocity) {
       player.vy = termVelocity;
       // jumping = false;
+    }
+  }
+
+  // TODO: check for collision between player and diamonds
+  for (var i = 0; i < diamondPool.length; i++) {
+    if (spritesCollide(player, diamondPool[i])) {
+      // destroy the diamond touched
+      app.stage.removeChild(diamondPool[i]);
+      diamondPool.splice(i, 1);
+      
+      // Update score and associated text
+      score += 25;
+      scoreText.text = 'Score: ' + score;
     }
   }
 
