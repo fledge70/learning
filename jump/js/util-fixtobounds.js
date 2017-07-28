@@ -11,17 +11,4 @@ function fixToBounds(sprite, x, y, width, height) {
   } else if (sprite.x < x) {
   	sprite.x = x;
   }
-  
-  /*
-  if (player.y > renderer.height - player.height) {
-    player.y = renderer.height - player.height;
-  } else if (player.y < 0) {
-    player.y = 0;
-  }
-  if (player.x > renderer.width - player.width) {
-    player.x = renderer.width - player.width;
-  } else if (player.x < 0) {
-    player.x = 0;
-  }
-  */
 }
