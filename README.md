@@ -1,2 +1,2 @@
 # learning
-Simple exercises created while learning JS and game development
+Simple exercises created while learning programming languages and game development
