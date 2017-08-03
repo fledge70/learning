@@ -1,6 +1,7 @@
 /**
- * This program reads a set of input lines and prints
- * the longest line.
+ * This program reads input containing lines of
+ * arbitrary length and prints their length,
+ * along with as much as possible of the text.
  */
 #include <stdio.h>
 
@@ -16,23 +17,13 @@ int main()
 	const int MAXLINE = 1000;
 
 	// initialize variables
-	int len,
-		max;
+	int len;
 	char line[MAXLINE];
-	char longest[MAXLINE];
 
-	max = 0;
 	while ( (len = mygetline(line, MAXLINE)) > 0)
 	{
-		if (len > max)
-		{
-			max = len;
-			copy(longest, line);
-		}
-	}
-	if (max > 0)		// there was a line
-	{
-		printf("%s", longest);
+		printf("Line length: %d\n", len);
+		printf("Contents: %s\n", line);
 	}
     
 	return 0;
